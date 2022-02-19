@@ -7,10 +7,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\Auth\LoginController;
 
-
-Route::get('login', [LoginController::class, 'create'])->name('login');
-Route::post('login', [LoginController::class, 'store'])->name('login');
-Route::post('/logout', [LoginController::class, 'destroy'])->middleware('auth');
+Route::controller(LoginController::class)->group(function () {
+    Route::get('login', 'create')->name('login');
+    Route::post('login', 'store')->name('login');
+    Route::post('/logout', 'destroy')->middleware('auth');
+});
 
 Route::middleware(['auth'])->group(function () {
 
